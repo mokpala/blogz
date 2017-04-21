@@ -57,6 +57,7 @@ class BlogHandler(webapp2.RequestHandler):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
         self.user = uid and User.get_by_id(int(uid))
+        
 
         if not self.user and self.request.path in auth_paths:
             self.redirect('/login')
@@ -289,7 +290,7 @@ class LogoutHandler(BlogHandler):
 
     def get(self):
         self.logout_user()
-        self.redirect('/blog')
+        self.redirect('/login')
 
 app = webapp2.WSGIApplication([
     ('/', IndexHandler),
